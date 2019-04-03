@@ -1,0 +1,193 @@
+<html lang="en">
+<head>
+  <title>DocuSign Clickwrap test page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    input:invalid {
+        box-shadow: 0 0 5px 1px red;
+    }
+    input:focus:invalid {
+        box-shadow: none;
+    }
+    input.form-control {width: 25em;}
+    #environmentHost {width: 10em; display:inline; margin-left:0.5em; margin-right: 0.5em;}
+    #saveUrl {width: 22em;display:inline; }
+    .notifyjs-bootstrap-error {padding: .5em .5em .5em 2em; font-size: x-large;}
+    #envp {margin-bottom: 0;}
+  </style>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>DocuSign Clickwrap Test Page</h1>
+  <p>
+    This page enables you to test your Clickwrap agreement without configuring a webserver.
+  </p>
+</div>
+
+<div class="collapse" id="helpSection">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-7 py-4">
+        <h4>Creating a Clickwrap agreement</h4>
+        <ol>
+          <li>Log into DocuSign, click <strong>Manage</strong> at the top of the screen.</li>
+          <li>Click <strong>Clickwraps</strong> at the top of the screen</li>
+          <li>Create a clickwrap agreement</li>
+          <li>Click the <strong>Get Code</strong> button on the right side to open the code window.</li>
+          <li>Copy the settings from the code window to the form below.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col-8">
+      <h4>Complete this form using the settings from the “Code” window of your clickwrap
+
+      <button class="ml-1 my-3 btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#helpSection" 
+        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        Show help for creating a Clickwrap
+      </button>
+      </h4>
+
+
+      <form>
+        <div class="form-group">
+            <label for="environmentHost">* Environment hostname</label>
+            <p id="envp">
+              <strong>https://</strong>
+              <input type="text" class="form-control" id="environmentHost" aria-describedby="environmentHelp" 
+                required placeholder="demo, na2, eu, etc">
+              <strong>.docusign.net</strong>
+            </p>
+            <small id="environmentHelp" class="form-text text-muted">
+                Required: Enter just the hostname of the environment.</small>
+        </div>
+        <div class="form-group">
+              <label for="accountId">* Account ID</label>
+          <input type="text" class="form-control" id="accountId" aria-describedby="accountIdHelp" 
+            required placeholder="Enter Account ID (long format)">
+          <small id="accountIdHelp" class="form-text text-muted">
+              Required: Your Account ID in the long, guid format</small>
+        </div>
+        <div class="form-group">
+            <label for="clickwrapId">* Clickwrap ID</label>
+            <input type="text" class="form-control" id="clickwrapId" aria-describedby="clickwrapIdHelp" 
+              required placeholder="Enter Clickwrap ID">
+            <small id="clickwrapIdHelp" class="form-text text-muted">
+                Required: Your Clickwrap ID</small>
+        </div>
+        <div class="form-group">
+            <label for="clientUserId">* ClientUser ID</label>
+            <input type="text" class="form-control" id="clientUserId" aria-describedby="clientUserIdHelp" 
+                required value="1000">
+            <small id="clientUserIdHelp" class="form-text text-muted">
+                Required: An ID to identify this signer. Names, numbers and punctionation are ok.<br/>
+                Each user only sees a clickwrap once. Change this value to see the clickwrap again.
+            </small>
+        </div>
+        <p><strong>Tip! you can save this form's url for later use: </strong>
+          <br /><input type="text" class="form-control input-sm" id="saveUrl">
+          <button class="ml-1 btn btn-sm btn-outline-info" type="button" id="saveUrlBtn"
+              aria-expanded="false" aria-label="Copy to clipboard">
+          Copy to clipboard
+        </button>  
+        </p>
+
+        <button id="clickSubmit" type="submit" class="btn btn-primary">Show the Clickwrap page</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="assets/notify.min.js"></script> <!-- see https://notifyjs.jpillora.com/ -->
+<script>
+    $( document ).ready(function() {
+        const notify_warning_t = { className:"error", globalPosition: "top center"};
+
+        function valuesString(includeCU = true) {
+          const accountId = $("#accountId").val()
+                , clickwrapId = $("#clickwrapId").val()
+                , clientUserId = $("#clientUserId").val()
+                , environmentHost = $("#environmentHost").val()
+                , r0 = "#a=" + accountId + "&cw=" + clickwrapId + 
+                       "&eh=" + environmentHost
+                , r = includeCU ? r0 + "&cu=" + clientUserId : r0
+                ;
+          return r 
+        }
+
+        let onClick = function _onClick(){
+            const values = valuesString();
+
+            if ($("form")[0].reportValidity()) {
+                // valid
+                const url = "agree.html" + values; 
+                window.location = encodeURI(url);
+            } else {
+                $.notify("Please fill in the form", notify_warning_t);
+            }
+            return false;
+        }
+
+        let urlUpdate = function _urlUpdate() {
+          const values = valuesString(false)
+              , raw = window.location.href
+              , i = raw.indexOf('#')
+              , base = i == -1 ? raw : raw.substring(0, i - 1)
+              , url = encodeURI(base + values);
+          $("#saveUrl").val(url)
+        }
+
+        function loadFromHash(){
+          // Pull out settings from the hash
+          if (! window.location.hash) {return}
+
+          let raw = decodeURI(window.location.hash).substr(1)
+            , eachParamsArr = raw.split('&')
+            , obj = {};
+          if (eachParamsArr && eachParamsArr.length) {
+              eachParamsArr.map(param => {
+                  let keyValuePair = param.split('=')
+                  let key = keyValuePair[0];
+                  let value = keyValuePair[1];
+                  obj[key] = value;
+              })
+          }
+          $("#accountId").val(obj.a);
+          $("#clickwrapId").val(obj.cw);
+          $("#clientUserId").val(obj.cu);
+          $("#environmentHost").val(obj.eh);
+        }
+
+        let copyToClipboad = function _copyToClipboard() {
+          // Copy the saveUrl value to the clipboard
+          // See https://stackoverflow.com/q/22581345/64904
+          var $temp = $("<input>");
+          $("body").append($temp);
+          $temp.val($("#saveUrl").val()).select();
+          document.execCommand("copy");
+          $temp.remove();
+        }
+
+        // The mainline
+        loadFromHash();
+        $("#clickSubmit").click(onClick);
+        $("#saveUrlBtn").click(copyToClipboad);
+        $("#accountId, #clickwrapId, #clientUserId, #environmentHost").keyup(urlUpdate);
+        urlUpdate();
+    });
+</script>
+
+
+</html>

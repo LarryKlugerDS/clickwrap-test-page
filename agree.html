@@ -1,237 +1,292 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
     <title>Clickwrap agree page example</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">    
-        <style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .jumbotron {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            margin-bottom: 0;
+            background-color: #fff;
+        }
+        
+        @media (min-width: 768px) {
             .jumbotron {
-                padding-top: 3rem;
-                padding-bottom: 3rem;
-                margin-bottom: 0;
-                background-color: #fff;}
-            @media (min-width: 768px) {
-                .jumbotron {padding-top: 6rem; padding-bottom: 6rem;}}
-                .jumbotron p:last-child {
-                margin-bottom: 0;}
-            .jumbotron-heading {font-weight: 300;}
-            .jumbotron .container {max-width: 40rem;}
-            footer {padding-top: 3rem;padding-bottom: 3rem;}
-            footer p {margin-bottom: .25rem;}
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;}
-          @media (min-width: 768px) {.bd-placeholder-img-lg {font-size: 3.5rem;}}
-        </style>
-      </head>
-      <body>
-        <header>
-      <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-              <h4 class="text-white">About</h4>
-              <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+            }
+        }
+        
+        .jumbotron p:last-child {margin-bottom: 0;}
+        .jumbotron-heading {font-weight: 300;}
+        .jumbotron .container {max-width: 40rem;}
+        footer {padding-top: 3rem; padding-bottom: 3rem;}
+        footer p {margin-bottom: .25rem;}
+
+        .loading {opacity: 0.5;}
+
+        /* SPINNER                              */
+        /* From http://tobiasahlin.com/spinkit/ */
+        .spinner {
+          margin: 100px auto;
+          width: 150px;
+          height: 140px;
+          text-align: center;
+          font-size: 10px;
+        }
+        .spinner > div {
+          background-color: blueviolet;
+          height: 100%;
+          width: 6px;
+          display: inline-block;
+
+          -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+          animation: sk-stretchdelay 1.2s infinite ease-in-out;
+        }
+        .spinner .rect2 {-webkit-animation-delay: -1.1s; animation-delay: -1.1s;}
+        .spinner .rect3 {-webkit-animation-delay: -1.0s; animation-delay: -1.0s;}
+        .spinner .rect4 {-webkit-animation-delay: -0.9s; animation-delay: -0.9s;}
+        .spinner .rect5 {-webkit-animation-delay: -0.8s; animation-delay: -0.8s;}
+        @-webkit-keyframes sk-stretchdelay {
+          0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+          20% { -webkit-transform: scaleY(1.0) }
+        }
+        @keyframes sk-stretchdelay {
+          0%, 40%, 100% {
+            transform: scaleY(0.4);
+            -webkit-transform: scaleY(0.4);
+          }  20% {
+            transform: scaleY(1.0);
+            -webkit-transform: scaleY(1.0);
+          }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4 class="text-white">About</h4>
+                        <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+                    </div>
+                    <div class="col-sm-4 offset-md-1 py-4">
+                        <h4 class="text-white">Contact</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                            <li><a href="#" class="text-white">Like on Facebook</a></li>
+                            <li><a href="#" class="text-white">Email me</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">Contact</h4>
-              <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                <li><a href="#" class="text-white">Like on Facebook</a></li>
-                <li><a href="#" class="text-white">Email me</a></li>
-              </ul>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                        <circle cx="12" cy="13" r="4" />
+                    </svg>
+                    <strong>An example web site: Album</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark shadow-sm">
-        <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-            <strong>Album</strong>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </div>
     </header>
-    
+
     <main role="main">
-    
-      <section class="jumbotron text-center">
-        <div class="container">
-          <h1 class="jumbotron-heading">Album example</h1>
-          <div id="clickwrap"></div>  <!-- THE CLICKWRAP LOCATION ON THE PAGE --> 
-          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-          <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-          </p>
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Album example website</h1>
+                <div id="clickwrap">
+                    <!-- THE CLICKWRAP LOCATION ON THE PAGE -->
+                </div>
+                <div class="col-md-12 feedback" id="feedback">
+                      <h3>Loading...&nbsp;&nbsp;&nbsp;<span></span></h3>
+                </div>      
+                <section id="spinner" class="feedback">
+                    <div class="spinner">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
+                </section>              
+                <p class="loading lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+                <p class="loading">
+                    <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                </p>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light loading">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train2.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/airlines470/" target="_blank">Eric Salard</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train1.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/formatc1/" target="_blank">Jeffrey</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train3.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/matsuyuki/" target="_blank">Toshiyuki Imai</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train4.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/dok1/" target="_blank">Don O'Brien</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train5.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/rbowen/" target="_blank">Rich Bowen</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train6.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/63975655@N07/" target="_blank">Lee Bristol</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train7.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/andrew_j_w/" target="_blank">Andrew Wilkinson</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train8.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/goultard/" target="_blank">Goultard</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="assets/train9.jpg" width="350" />
+                            <div class="card-body">
+                                <p class="card-text">Credit: <a href="https://www.flickr.com/photos/rickwashere/" target="_blank">Rick</a></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-    
-      <div class="album py-5 bg-light">
-        <div class="container">
-    
-          <div class="row">
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img src="assets/train2.jpg" width="350"/>
-                <div class="card-body">
-                  <p class="card-text">Credit: <a href="https://www.flickr.com/photos/airlines470/" target="_blank">Eric Salard</a></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                    <img src="assets/train1.jpg" width="350"/>
-                    <div class="card-body">
-                      <p class="card-text">Credit: <a href="https://www.flickr.com/photos/formatc1/" target="_blank">Jeffrey</a></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                    <img src="assets/train3.jpg" width="350"/>
-                    <div class="card-body">
-                      <p class="card-text">Credit: <a href="https://www.flickr.com/photos/matsuyuki/" target="_blank">Toshiyuki Imai</a></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-    
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                    <img src="assets/train4.jpg" width="350"/>
-                    <div class="card-body">
-                      <p class="card-text">Credit: <a href="https://www.flickr.com/photos/dok1/" target="_blank">Don O'Brien</a></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                    <img src="assets/train5.jpg" width="350"/>
-                    <div class="card-body">
-                      <p class="card-text">Credit: <a href="https://www.flickr.com/photos/rbowen/" target="_blank">Rich Bowen</a></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                    <img src="assets/train6.jpg" width="350"/>
-                    <div class="card-body">
-                      <p class="card-text">Credit: <a href="https://www.flickr.com/photos/63975655@N07/" target="_blank">Lee Bristol</a></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-    
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                    <img src="assets/train7.jpg" width="350"/>
-                    <div class="card-body">
-                      <p class="card-text">Credit: <a href="https://www.flickr.com/photos/andrew_j_w/" target="_blank">Andrew Wilkinson</a></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                    <img src="assets/train8.jpg" width="350"/>
-                    <div class="card-body">
-                      <p class="card-text">Credit: <a href="https://www.flickr.com/photos/goultard/" target="_blank">Goultard</a></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                    <img src="assets/train9.jpg" width="350"/>
-                    <div class="card-body">
-                      <p class="card-text">Credit: <a href="https://www.flickr.com/photos/rickwashere/" target="_blank">Rick</a></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
+
     </main>
-    
+
     <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-      </div>
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+        </div>
     </footer>
 </body>
 
@@ -240,11 +295,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://demo.docusign.net/clickapi/sdk/latest/docusign-click.js"></script>
 <script>
-    $( document ).ready(function() {
+    // COUNTDOWN support
+    let countdownInfo = { // using an object since it's a pointer
+        countdown: true, // Should countdown continue?
+        intervalId: null // id of the count down interval
+      }
+
+    function startClickwrap() {
+        // Note that we are NOT waiting for DOM-ready. 
+        // Why: we want to start the API call to DocuSign asap; if a clickwrap needs to be
+        //      displayed, then the Clickwrap SDK will wait for DOM-ready.
+        // 
         // Pull out settings from the hash
-        let raw = decodeURI(window.location.hash).substr(1)
-          , eachParamsArr = raw.split('&')
-          , obj = {};
+        let raw = decodeURI(window.location.hash).substr(1),
+            eachParamsArr = raw.split('&'),
+            obj = {};
         if (eachParamsArr && eachParamsArr.length) {
             eachParamsArr.map(param => {
                 let keyValuePair = param.split('=')
@@ -254,15 +319,49 @@
             })
         }
 
-        // Start the clickwrap
+        let stopFeedback = function _stopFeedback() {
+            $(document).ready(function() {
+                // Stop the countdown 
+                countdownInfo.countdown = false;
+                $(".feedback").hide();
+                $(".loading").removeClass("loading");
+            });
+        }
+        
+        // Start the clickwrap flow
         docuSignClick.Clickwrap.render({
             environment: 'https://' + obj.eh + '.docusign.net',
             accountId: obj.a,
             clickwrapId: obj.cw,
-            clientUserId: obj.cu
+            clientUserId: obj.cu,
+            // onMustAgree() -- Triggered when the user is presented with the agreement 
+            // (it is rendered at this point, document may still be loading)
+            onMustAgree: stopFeedback,
+            // onAgreed() -- Agreement has been completed. Either completed just now or was
+            // previously completed (no Signing Ceremony was shown at this time.) 
+            onAgreed: stopFeedback,
+            // onError(errorMessage) -- There was a session ending error.
+            onError: stopFeedback
         }, '#clickwrap');
+    }
+
+    function doCountdown() {
+        let value = 200
+          , timerMS = 300
+          , el = $('#feedback h3 span')
+          , show = () => {if (countdownInfo.countdown) {el.text(value)} value -= 1}
+          ;
+        
+        show();
+        countdownInfo.intervalId = setInterval( show, timerMS );
+    }
+
+
+    startClickwrap();
+    $(document).ready(function() {
+      // Start the countdown to provide additional feedback to the user
+      doCountdown();
     });
-
-
 </script>
+
 </html>

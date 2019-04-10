@@ -3,6 +3,7 @@
   <title>DocuSign Clickwrap test page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <style>
     input:invalid {
@@ -59,6 +60,18 @@
 
       <form>
         <div class="form-group">
+          <p>Note: Each user (ClientUser ID) only sees a clickwrap once.
+             <br />Change this value to see the clickwrap again:
+          </p>
+          <label for="clientUserId">* ClientUser ID</label>
+          <input type="text" class="form-control" id="clientUserId" aria-describedby="clientUserIdHelp" 
+              required value="1000">
+          <small id="clientUserIdHelp" class="form-text text-muted">
+              Required: An ID to identify this signer. Names, numbers and punctionation are ok.<br/>
+          </small>
+      </div>
+
+      <div class="form-group">
             <label for="environmentHost">* Environment hostname</label>
             <p id="envp">
               <strong>https://</strong>
@@ -83,15 +96,7 @@
             <small id="clickwrapIdHelp" class="form-text text-muted">
                 Required: Your Clickwrap ID</small>
         </div>
-        <div class="form-group">
-            <label for="clientUserId">* ClientUser ID</label>
-            <input type="text" class="form-control" id="clientUserId" aria-describedby="clientUserIdHelp" 
-                required value="1000">
-            <small id="clientUserIdHelp" class="form-text text-muted">
-                Required: An ID to identify this signer. Names, numbers and punctionation are ok.<br/>
-                Each user only sees a clickwrap once. Change this value to see the clickwrap again.
-            </small>
-        </div>
+
         <p><strong>Tip! you can save this form's url for later use: </strong>
           <br /><input type="text" class="form-control input-sm" id="saveUrl">
           <button class="ml-1 btn btn-sm btn-outline-info" type="button" id="saveUrlBtn"
